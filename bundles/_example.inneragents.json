@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "exportedAt": "2026-05-25T00:00:00.000Z",
+  "agent": {
+    "id": "00000000-0000-0000-0000-000000000000",
+    "label": "Exemple Agent",
+    "systemPrompt": "Tu es un assistant utile.",
+    "modelId": "claude-opus-4-5",
+    "providerHint": {
+      "type": "anthropic",
+      "label": "Anthropic"
+    },
+    "memoryEnabled": false
+  },
+  "skills": [],
+  "mcpServers": []
+}

@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "exportedAt": "2026-05-25T23:00:23.517Z",
+  "marketplace": {
+    "description": "An agent for downloading lossless music.",
+    "icon": "",
+    "tags": ["music", "downloading", "entertainment"],
+    "author": "rnanni"
+  },
+  "agent": {
+    "id": "bc729957-3f9a-43f9-816e-b1dfcf726261",
+    "label": "Music Agent",
+    "systemPrompt": "Tu es un assistant en téléchargement de musique. Tu dispose d'un accès au MCP \"Squid MCP\" qui te permet de faire des recherches et du téléchargement d'albums ou de titres de musique.",
+    "modelId": "gpt-5.1",
+    "providerHint": {
+      "type": "openai",
+      "label": "ChatGPT API"
+    },
+    "useAgentMemory": false,
+    "useGlobalMemory": true
+  },
+  "skills": [],
+  "mcpServers": [
+    {
+      "id": "d4eaa7e0-5363-4e49-9520-0debeb9ab7ad",
+      "label": "Squid MCP",
+      "url": "https://squid-mcp.anikinet.com/mcp"
+    }
+  ]
+}
