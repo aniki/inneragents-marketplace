@@ -60,7 +60,7 @@ for (const file of bundleFiles) {
     icon:        mp.icon        ?? '🤖',
     tags:        mp.tags        ?? [],
     author:      mp.author      ?? '',
-    bundle:      file,
+    bundle:      `bundles/${file}`,
   })
 
   console.log(`✓  ${file}`)
