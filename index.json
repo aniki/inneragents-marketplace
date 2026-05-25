@@ -9,9 +9,13 @@
       "exportedAt": "2026-05-25T23:01:10.268Z",
       "description": "An assistant for managing your second brain and organizing knowledge.",
       "icon": "",
-      "tags": ["second-brain", "knowledge-management", "productivity"],
+      "tags": [
+        "second-brain",
+        "knowledge-management",
+        "productivity"
+      ],
       "author": "rnanni",
-      "bundleUrl": "https://raw.githubusercontent.com/rnanni/inneragents-marketplace/main/bundles/brain-two-assistant.inneragents.json"
+      "bundle": "brain-two-assistant.inneragents.json"
     },
     {
       "agentId": "bc729957-3f9a-43f9-816e-b1dfcf726261",
@@ -19,9 +23,13 @@
       "exportedAt": "2026-05-25T23:00:23.517Z",
       "description": "An agent for downloading lossless music.",
       "icon": "",
-      "tags": ["music", "downloading", "entertainment"],
+      "tags": [
+        "music",
+        "downloading",
+        "entertainment"
+      ],
       "author": "rnanni",
-      "bundleUrl": "https://raw.githubusercontent.com/rnanni/inneragents-marketplace/main/bundles/music-agent.inneragents.json"
+      "bundle": "music-agent.inneragents.json"
     }
   ]
 }
