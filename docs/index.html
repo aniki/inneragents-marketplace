@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>InnerAgents — AI agents that live in your browser</title>
+  <meta name="description" content="Connect any LLM to your browser. Add MCP servers, build custom skills, inject live page context. Local-first, no account required." />
+  <meta property="og:title" content="InnerAgents" />
+  <meta property="og:description" content="AI agents that live in your browser sidebar." />
+  <meta property="og:image" content="assets/icon-128.png" />
+  <style>
+    :root {
+      --bg:        #0a0d14;
+      --surface:   #111520;
+      --card:      #161c2c;
+      --border:    #1e2640;
+      --text:      #e8eaf0;
+      --muted:     #6b7280;
+      --soft:      #9ca3af;
+      --accent:    #7c3aed;
+      --accent-l:  #a78bfa;
+      --accent-m:  rgba(124,58,237,.12);
+      --blue:      #3b82f6;
+      --green:     #10b981;
+      --amber:     #f59e0b;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Inter", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--accent-l); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+      height: 60px;
+      background: rgba(10,13,20,.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .nav-brand img { width: 28px; height: 28px; border-radius: 7px; }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      font-size: .875rem;
+      color: var(--soft);
+    }
+    .nav-links a { color: var(--soft); }
+    .nav-links a:hover { color: var(--text); text-decoration: none; }
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent);
+      color: #fff;
+      font-size: .875rem;
+      font-weight: 600;
+      padding: 8px 18px;
+      border-radius: 8px;
+      transition: opacity .15s;
+    }
+    .cta-btn:hover { opacity: .85; text-decoration: none; }
+    .cta-btn svg { flex-shrink: 0; }
+
+    /* ── HERO ── */
+    .hero {
+      text-align: center;
+      padding: 100px 24px 80px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--accent-m);
+      border: 1px solid rgba(124,58,237,.3);
+      color: var(--accent-l);
+      font-size: .75rem;
+      font-weight: 600;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 100px;
+      margin-bottom: 28px;
+    }
+    .badge-dot {
+      width: 6px; height: 6px;
+      background: var(--accent-l);
+      border-radius: 50%;
+    }
+    h1 {
+      font-size: clamp(2rem, 5vw, 3.25rem);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -.02em;
+      margin-bottom: 20px;
+    }
+    h1 span {
+      background: linear-gradient(135deg, var(--accent-l), var(--blue));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-sub {
+      font-size: 1.1rem;
+      color: var(--soft);
+      max-width: 560px;
+      margin: 0 auto 40px;
+      line-height: 1.7;
+    }
+    .hero-actions {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent);
+      color: #fff;
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 13px 28px;
+      border-radius: 10px;
+      transition: opacity .15s, transform .15s;
+    }
+    .btn-primary:hover { opacity: .88; transform: translateY(-1px); text-decoration: none; }
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid var(--border);
+      color: var(--soft);
+      font-size: .95rem;
+      padding: 12px 22px;
+      border-radius: 10px;
+      transition: border-color .15s, color .15s;
+    }
+    .btn-ghost:hover { border-color: var(--soft); color: var(--text); text-decoration: none; }
+
+    /* ── PILL ROW ── */
+    .pills {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 0 24px 72px;
+    }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--soft);
+      font-size: .8rem;
+      padding: 5px 14px;
+      border-radius: 100px;
+    }
+    .pill-dot { width: 6px; height: 6px; border-radius: 50%; }
+
+    /* ── SECTION ── */
+    section { padding: 72px 24px; max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      text-align: center;
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--accent-l);
+      margin-bottom: 12px;
+    }
+    .section-title {
+      text-align: center;
+      font-size: clamp(1.5rem, 3vw, 2.25rem);
+      font-weight: 800;
+      letter-spacing: -.02em;
+      margin-bottom: 16px;
+    }
+    .section-sub {
+      text-align: center;
+      color: var(--soft);
+      font-size: 1rem;
+      max-width: 520px;
+      margin: 0 auto 56px;
+      line-height: 1.7;
+    }
+
+    /* ── FEATURES GRID ── */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    .feature-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 28px 28px 24px;
+      transition: border-color .2s, transform .2s;
+    }
+    .feature-card:hover { border-color: rgba(124,58,237,.4); transform: translateY(-2px); }
+    .feature-icon {
+      width: 44px; height: 44px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem;
+      margin-bottom: 18px;
+    }
+    .feature-card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+    .feature-card p {
+      font-size: .875rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ── HOW IT WORKS ── */
+    .steps { display: flex; flex-direction: column; gap: 0; max-width: 600px; margin: 0 auto; }
+    .step {
+      display: flex;
+      gap: 24px;
+      padding: 24px 0;
+      position: relative;
+    }
+    .step:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      left: 19px;
+      top: 64px;
+      width: 2px;
+      height: calc(100% - 40px);
+      background: var(--border);
+    }
+    .step-num {
+      flex-shrink: 0;
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: var(--accent-m);
+      border: 2px solid var(--accent);
+      display: flex; align-items: center; justify-content: center;
+      font-size: .875rem;
+      font-weight: 800;
+      color: var(--accent-l);
+      position: relative;
+      z-index: 1;
+    }
+    .step-body { padding-top: 8px; }
+    .step-body h3 { font-size: 1rem; font-weight: 700; margin-bottom: 4px; }
+    .step-body p { font-size: .875rem; color: var(--muted); }
+
+    /* ── LOCAL-FIRST BANNER ── */
+    .local-banner {
+      background: linear-gradient(135deg, rgba(124,58,237,.08), rgba(59,130,246,.06));
+      border: 1px solid rgba(124,58,237,.2);
+      border-radius: 16px;
+      padding: 48px 40px;
+      text-align: center;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .local-banner .icon { font-size: 2.5rem; margin-bottom: 16px; }
+    .local-banner h2 { font-size: 1.5rem; font-weight: 800; margin-bottom: 12px; }
+    .local-banner p { color: var(--soft); font-size: .95rem; max-width: 480px; margin: 0 auto; }
+
+    /* ── PROVIDERS ── */
+    .providers {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .provider-chip {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 8px 18px;
+      font-size: .875rem;
+      color: var(--soft);
+      font-weight: 500;
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 0 24px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 40px 24px 48px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+      font-size: .95rem;
+      color: var(--text);
+    }
+    .footer-brand img { width: 22px; height: 22px; border-radius: 5px; }
+    .footer-links {
+      display: flex;
+      gap: 20px;
+      font-size: .8rem;
+      color: var(--muted);
+    }
+    .footer-links a { color: var(--muted); }
+    .footer-links a:hover { color: var(--soft); text-decoration: none; }
+    .footer-copy { font-size: .75rem; color: var(--muted); }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-brand" href="/">
+    <img src="assets/icon-128.png" alt="InnerAgents" />
+    InnerAgents
+  </a>
+  <div class="nav-links">
+    <a href="#features">Features</a>
+    <a href="#how">How it works</a>
+    <a href="https://github.com/aniki/inneragents-marketplace" target="_blank">Marketplace</a>
+    <a class="cta-btn" href="#install">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 15V3m0 12l-4-4m4 4l4-4"/><path d="M2 17l.621 2.485A2 2 0 0 0 4.561 21h14.878a2 2 0 0 0 1.94-1.515L22 17"/></svg>
+      Install
+    </a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="badge"><span class="badge-dot"></span> Chrome Extension · MV3</div>
+  <h1>AI agents that live in<br/><span>your browser sidebar</span></h1>
+  <p class="hero-sub">
+    Connect any LLM to MCP servers, build custom skills with JavaScript, and give your agents full awareness of what you're browsing — all stored locally on your device.
+  </p>
+  <div class="hero-actions">
+    <a class="btn-primary" id="install" href="https://chrome.google.com/webstore" target="_blank">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v8m-4-4h8"/></svg>
+      Add to Chrome — it's free
+    </a>
+    <a class="btn-ghost" href="https://github.com/aniki/inneragents-marketplace" target="_blank">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>
+      Browse the Marketplace
+    </a>
+  </div>
+</div>
+
+<!-- PILLS -->
+<div class="pills">
+  <span class="pill"><span class="badge-dot" style="background:#10b981"></span> No account required</span>
+  <span class="pill"><span class="badge-dot" style="background:#7c3aed"></span> Your API keys, your data</span>
+  <span class="pill"><span class="badge-dot" style="background:#3b82f6"></span> Anthropic · OpenAI · OpenRouter · Custom</span>
+  <span class="pill"><span class="badge-dot" style="background:#f59e0b"></span> MCP servers</span>
+  <span class="pill"><span class="badge-dot" style="background:#ec4899"></span> Local-first</span>
+</div>
+
+<hr class="divider" />
+
+<!-- FEATURES -->
+<section id="features">
+  <p class="section-label">Features</p>
+  <h2 class="section-title">Everything you need to build powerful agents</h2>
+  <p class="section-sub">InnerAgents is a complete agentic harness — not a thin wrapper around a chat API.</p>
+
+  <div class="features">
+
+    <div class="feature-card">
+      <div class="feature-icon" style="background:rgba(124,58,237,.15)">🔌</div>
+      <h3>Multi-provider LLM</h3>
+      <p>Connect Anthropic, OpenAI, OpenRouter, or any OpenAI-compatible endpoint. Switch models per agent. Pricing displayed directly in the model selector.</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon" style="background:rgba(59,130,246,.15)">🌐</div>
+      <h3>Live browser context</h3>
+      <p>Inject the current page, a screenshot, or a text selection into your conversation with one click. Define URL rules to auto-inject context on specific sites.</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon" style="background:rgba(245,158,11,.15)">⚙️</div>
+      <h3>MCP servers</h3>
+      <p>Connect any remote MCP server over SSE or Streamable HTTP. Bearer token and OAuth 2.0 authentication built in. Your agents gain real tools without code.</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon" style="background:rgba(16,185,129,.15)">🛠</div>
+      <h3>Custom skills</h3>
+      <p>Write JavaScript skills that run sandboxed in the browser. Skills can interact with tabs, capture screenshots, and execute scripts — with your explicit consent.</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon" style="background:rgba(236,72,153,.15)">🧠</div>
+      <h3>Persistent memory</h3>
+      <p>Agents remember facts across conversations. A shared global memory lets all your agents benefit from the same user context. Everything stored locally.</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon" style="background:rgba(124,58,237,.15)">🤝</div>
+      <h3>Multi-agent collaboration</h3>
+      <p>Delegate subtasks to specialized agents. A research agent hands off to a writing agent, which hands off to a publishing agent. Full delegation trace included.</p>
+    </div>
+
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <p class="section-label">Get started</p>
+  <h2 class="section-title">Up and running in 3 steps</h2>
+  <p class="section-sub">No account, no setup wizard. Just your API key and a first message.</p>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <h3>Add a provider</h3>
+        <p>Paste your Anthropic, OpenAI, or OpenRouter API key in Settings → Providers. Your key is stored locally and never leaves your device except to call the model.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <h3>Create an agent</h3>
+        <p>Give your agent a name, a system prompt, and pick a model. Optionally attach MCP servers or skills. Import a ready-made agent from the Marketplace in one click.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <h3>Start chatting</h3>
+        <p>Open the sidebar on any page. Inject the page content, paste a screenshot, or ask a question. Your agent has full access to the tools you gave it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- PROVIDERS -->
+<section style="padding: 64px 24px;">
+  <p class="section-label">Compatible providers</p>
+  <h2 class="section-title" style="margin-bottom:40px">Bring your own API key</h2>
+  <div class="providers">
+    <div class="provider-chip">🟣 Anthropic (Claude)</div>
+    <div class="provider-chip">🟢 OpenAI (GPT / o-series)</div>
+    <div class="provider-chip">🔵 OpenRouter</div>
+    <div class="provider-chip">⚪ Any OpenAI-compatible endpoint</div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- LOCAL-FIRST -->
+<section style="padding: 72px 24px;">
+  <div class="local-banner">
+    <div class="icon">🔒</div>
+    <h2>Local-first, always</h2>
+    <p>Your conversations, API keys, and agent configurations are stored on your device — in <code style="font-family:monospace;font-size:.8em;background:rgba(255,255,255,.07);padding:2px 6px;border-radius:4px">chrome.storage.local</code> and IndexedDB. InnerAgents has no backend, no analytics, and no account system. Your data is yours.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">
+    <img src="assets/icon-128.png" alt="InnerAgents" />
+    InnerAgents
+  </div>
+  <div class="footer-links">
+    <a href="https://github.com/aniki/inneragents-marketplace" target="_blank">Marketplace</a>
+    <a href="https://github.com/aniki/inneragents-marketplace" target="_blank">GitHub</a>
+    <a href="privacy-policy.html">Privacy Policy</a>
+  </div>
+  <p class="footer-copy">© 2026 InnerAgents. Built with ♥ for the open web.</p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>InnerAgents — Privacy Policy</title>
+  <meta name="description" content="InnerAgents privacy policy. Local-first extension — your data stays on your device." />
+  <style>
+    :root {
+      --bg:        #0a0d14;
+      --surface:   #111520;
+      --card:      #161c2c;
+      --border:    #1e2640;
+      --text:      #e8eaf0;
+      --muted:     #6b7280;
+      --soft:      #9ca3af;
+      --accent:    #7c3aed;
+      --accent-l:  #a78bfa;
+      --accent-m:  rgba(124,58,237,.12);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Inter", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--accent-l); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    code {
+      font-family: "SFMono-Regular", Consolas, monospace;
+      font-size: .8em;
+      background: rgba(255,255,255,.07);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1px 5px;
+    }
+
+    nav {
+      position: sticky; top: 0; z-index: 10;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 32px; height: 60px;
+      background: rgba(10,13,20,.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-brand {
+      display: flex; align-items: center; gap: 10px;
+      font-weight: 700; font-size: 1rem; color: var(--text); text-decoration: none;
+    }
+    .nav-brand img { width: 28px; height: 28px; border-radius: 7px; }
+    .nav-back { font-size: .875rem; color: var(--soft); display: flex; align-items: center; gap: 6px; }
+    .nav-back:hover { color: var(--text); text-decoration: none; }
+
+    .page { max-width: 720px; margin: 0 auto; padding: 60px 24px 80px; }
+
+    .page-header { margin-bottom: 48px; }
+    .page-header h1 { font-size: 1.75rem; font-weight: 800; letter-spacing: -.02em; margin-bottom: 8px; }
+    .page-header .updated { font-size: .8rem; color: var(--muted); }
+
+    .lang-tabs { display: flex; gap: 8px; margin-bottom: 36px; }
+    .lang-tab {
+      padding: 6px 16px; border-radius: 6px;
+      border: 1px solid var(--border); background: none;
+      color: var(--muted); cursor: pointer; font-size: .85rem; transition: all .15s;
+    }
+    .lang-tab.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+    .lang-section { display: none; }
+    .lang-section.active { display: block; }
+
+    .summary-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: 8px;
+      padding: 16px 20px; margin-bottom: 40px;
+      font-size: .9rem; color: var(--soft);
+    }
+    .summary-box strong { color: var(--text); }
+
+    h2 {
+      font-size: 1.05rem; font-weight: 700;
+      margin: 36px 0 12px; padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+    h3 {
+      font-size: .8rem; font-weight: 700;
+      color: var(--accent-l); margin: 20px 0 8px;
+      text-transform: uppercase; letter-spacing: .06em;
+    }
+    p { font-size: .9rem; color: var(--soft); margin-bottom: 12px; }
+    strong { color: var(--text); }
+    ul { padding-left: 20px; margin-bottom: 12px; }
+    li { font-size: .9rem; color: var(--soft); margin-bottom: 4px; }
+
+    table { width: 100%; border-collapse: collapse; margin: 16px 0 24px; font-size: .82rem; }
+    th {
+      text-align: left; padding: 8px 12px;
+      background: var(--card); color: var(--text);
+      border: 1px solid var(--border); font-weight: 600;
+    }
+    td { padding: 8px 12px; border: 1px solid var(--border); color: var(--soft); vertical-align: top; }
+
+    footer {
+      text-align: center; padding: 40px 24px 48px;
+      border-top: 1px solid var(--border);
+      display: flex; flex-direction: column; align-items: center; gap: 16px;
+    }
+    .footer-brand { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: .95rem; color: var(--text); }
+    .footer-brand img { width: 22px; height: 22px; border-radius: 5px; }
+    .footer-links { display: flex; gap: 20px; font-size: .8rem; }
+    .footer-links a { color: var(--muted); }
+    .footer-links a:hover { color: var(--soft); text-decoration: none; }
+    .footer-copy { font-size: .75rem; color: var(--muted); }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-brand" href="index.html">
+    <img src="assets/icon-128.png" alt="InnerAgents" />
+    InnerAgents
+  </a>
+  <a class="nav-back" href="index.html">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+    Back to home
+  </a>
+</nav>
+
+<div class="page">
+
+  <div class="page-header">
+    <h1>Privacy Policy</h1>
+    <p class="updated">Last updated: 2026-05-27</p>
+  </div>
+
+  <div class="lang-tabs">
+    <button class="lang-tab active" onclick="setLang('en', event)">🇬🇧 English</button>
+    <button class="lang-tab" onclick="setLang('fr', event)">🇫🇷 Français</button>
+  </div>
+
+  <!-- ── ENGLISH ── -->
+  <div class="lang-section active" id="lang-en">
+
+    <div class="summary-box">
+      <strong>TL;DR:</strong> InnerAgents is local-first. Your conversations, API keys, and settings are stored on your device only. No data is collected by the InnerAgents developer. External connections are only made to services you explicitly configure.
+    </div>
+
+    <h2>1. What data InnerAgents accesses</h2>
+
+    <h3>Browsing content — with your action only</h3>
+    <p>InnerAgents requests access to all URLs (<code>&lt;all_urls&gt;</code>) exclusively to:</p>
+    <ul>
+      <li>Read the content of the page you are viewing, when you click <strong>"Page"</strong> or when a URL rule you configured triggers an injection</li>
+      <li>Capture a screenshot of the active tab when you click <strong>"Screen"</strong></li>
+      <li>Execute scripts on a page when a Skill you created explicitly requests it (with your prior consent per API)</li>
+    </ul>
+    <p>InnerAgents does <strong>not</strong> monitor your browsing, track visited pages, or collect any data passively.</p>
+
+    <h3>Text selections</h3>
+    <p>When you right-click a selection and choose "Ask agent", the selected text is stored temporarily in <code>chrome.storage.session</code> and sent to the model in your next message only.</p>
+
+    <h2>2. Data stored locally on your device</h2>
+    <p>All data is stored on your device. Nothing is synced to external servers by InnerAgents.</p>
+    <table>
+      <thead><tr><th>Data</th><th>Storage</th><th>Retention</th></tr></thead>
+      <tbody>
+        <tr><td>Provider API keys</td><td><code>chrome.storage.local</code></td><td>Until you delete the provider</td></tr>
+        <tr><td>Agent configurations</td><td><code>chrome.storage.local</code></td><td>Until you delete the agent</td></tr>
+        <tr><td>Conversation history</td><td>IndexedDB (on-device)</td><td>Up to 50 conversations per agent</td></tr>
+        <tr><td>Agent memories</td><td><code>chrome.storage.local</code></td><td>Until you clear them</td></tr>
+        <tr><td>MCP server credentials</td><td><code>chrome.storage.local</code></td><td>Until you delete the server</td></tr>
+        <tr><td>OAuth tokens (MCP)</td><td><code>chrome.storage.local</code></td><td>Until you disconnect</td></tr>
+      </tbody>
+    </table>
+
+    <h2>3. External connections</h2>
+    <p>InnerAgents connects to external services <strong>only at your direction</strong>:</p>
+
+    <h3>LLM providers</h3>
+    <p>Your messages are sent directly to the API of the provider you configured (e.g. <code>api.anthropic.com</code>, <code>api.openai.com</code>). No InnerAgents server logs, stores, or inspects these requests.</p>
+
+    <h3>MCP servers</h3>
+    <p>If you configure MCP servers, InnerAgents connects to the URLs you provided, on demand, when the agent needs to use a tool.</p>
+
+    <h3>Web fetch / Web search</h3>
+    <p>When an agent uses <code>web_fetch</code> or <code>web_search</code>, InnerAgents fetches the requested URL or calls the Brave Search API using your configured key. These are explicit, agent-triggered actions.</p>
+
+    <h3>OpenRouter model pricing (optional)</h3>
+    <p>If you have an OpenRouter provider configured, InnerAgents performs a read-only fetch to <code>openrouter.ai/api/v1/models</code> to display pricing in the model selector.</p>
+
+    <h2>4. What InnerAgents does NOT do</h2>
+    <ul>
+      <li>Does not collect telemetry or analytics</li>
+      <li>Does not send your data to InnerAgents servers (there are none)</li>
+      <li>Does not track which websites you visit</li>
+      <li>Does not sell or share your data with any third party</li>
+      <li>Does not use cookies</li>
+      <li>Does not require account registration</li>
+    </ul>
+
+    <h2>5. Children's privacy</h2>
+    <p>InnerAgents is not directed at children under 13 and does not knowingly collect data from them.</p>
+
+    <h2>6. Changes to this policy</h2>
+    <p>If this policy changes materially, the "Last updated" date will be updated. Continued use after changes constitutes acceptance.</p>
+
+    <h2>7. Contact</h2>
+    <p>Privacy questions: <a href="mailto:raphael.nanni@gmail.com">raphael.nanni@gmail.com</a></p>
+
+  </div>
+
+  <!-- ── FRANÇAIS ── -->
+  <div class="lang-section" id="lang-fr">
+
+    <div class="summary-box">
+      <strong>En résumé :</strong> InnerAgents est local-first. Vos conversations, clés API et paramètres sont stockés uniquement sur votre appareil. Aucune donnée n'est collectée par le développeur. Les connexions externes ne sont établies qu'aux services que vous configurez explicitement.
+    </div>
+
+    <h2>1. Données auxquelles InnerAgents accède</h2>
+
+    <h3>Contenu de navigation — uniquement sur votre action</h3>
+    <p>InnerAgents demande l'accès à toutes les URLs (<code>&lt;all_urls&gt;</code>) exclusivement pour :</p>
+    <ul>
+      <li>Lire le contenu de la page consultée, lorsque vous cliquez sur <strong>"Page"</strong> ou qu'une règle URL déclenche une injection</li>
+      <li>Capturer une capture d'écran de l'onglet actif lorsque vous cliquez sur <strong>"Screen"</strong></li>
+      <li>Exécuter des scripts sur une page lorsqu'un Skill que vous avez créé le demande (avec votre consentement préalable par API)</li>
+    </ul>
+    <p>InnerAgents ne surveille <strong>pas</strong> votre navigation et ne collecte aucune donnée passivement.</p>
+
+    <h3>Sélections de texte</h3>
+    <p>Lorsque vous choisissez "Ask agent" via le clic droit, le texte est stocké temporairement dans <code>chrome.storage.session</code> et envoyé au modèle dans votre prochain message uniquement.</p>
+
+    <h2>2. Données stockées localement</h2>
+    <p>Toutes les données sont stockées sur votre appareil. Rien n'est synchronisé vers des serveurs externes par InnerAgents.</p>
+    <table>
+      <thead><tr><th>Donnée</th><th>Stockage</th><th>Rétention</th></tr></thead>
+      <tbody>
+        <tr><td>Clés API des providers</td><td><code>chrome.storage.local</code></td><td>Jusqu'à suppression du provider</td></tr>
+        <tr><td>Configurations d'agents</td><td><code>chrome.storage.local</code></td><td>Jusqu'à suppression de l'agent</td></tr>
+        <tr><td>Historique des conversations</td><td>IndexedDB (local)</td><td>Jusqu'à 50 conversations par agent</td></tr>
+        <tr><td>Mémoires des agents</td><td><code>chrome.storage.local</code></td><td>Jusqu'à effacement manuel</td></tr>
+        <tr><td>Credentials serveurs MCP</td><td><code>chrome.storage.local</code></td><td>Jusqu'à suppression du serveur</td></tr>
+        <tr><td>Tokens OAuth (MCP)</td><td><code>chrome.storage.local</code></td><td>Jusqu'à déconnexion</td></tr>
+      </tbody>
+    </table>
+
+    <h2>3. Connexions externes</h2>
+    <p>InnerAgents se connecte à des services externes <strong>uniquement à votre demande</strong> :</p>
+
+    <h3>Providers LLM</h3>
+    <p>Vos messages sont envoyés directement à l'API du provider configuré (ex : <code>api.anthropic.com</code>). Aucun serveur InnerAgents ne journalise ou inspecte ces requêtes.</p>
+
+    <h3>Serveurs MCP</h3>
+    <p>Si vous configurez des serveurs MCP, InnerAgents se connecte aux URLs renseignées, à la demande, lorsque l'agent a besoin d'utiliser un outil.</p>
+
+    <h3>Web fetch / Web search</h3>
+    <p>Lorsqu'un agent utilise <code>web_fetch</code> ou <code>web_search</code>, InnerAgents charge l'URL demandée ou appelle l'API Brave Search. Ce sont des actions explicites déclenchées par l'agent.</p>
+
+    <h3>Tarifs des modèles OpenRouter (optionnel)</h3>
+    <p>Si vous avez un provider OpenRouter configuré, InnerAgents effectue un appel en lecture seule vers <code>openrouter.ai/api/v1/models</code> pour afficher les tarifs dans le sélecteur de modèles.</p>
+
+    <h2>4. Ce qu'InnerAgents ne fait PAS</h2>
+    <ul>
+      <li>Ne collecte pas de télémétrie ni d'analytics</li>
+      <li>N'envoie pas vos données à des serveurs InnerAgents (il n'en existe pas)</li>
+      <li>Ne trace pas les sites que vous visitez</li>
+      <li>Ne vend ni ne partage vos données avec des tiers</li>
+      <li>N'utilise pas de cookies</li>
+      <li>Ne requiert pas de création de compte</li>
+    </ul>
+
+    <h2>5. Protection des mineurs</h2>
+    <p>InnerAgents ne s'adresse pas aux enfants de moins de 13 ans et ne collecte pas sciemment de données les concernant.</p>
+
+    <h2>6. Modifications</h2>
+    <p>En cas de modification substantielle, la date "Last updated" sera actualisée. L'utilisation continue vaut acceptation.</p>
+
+    <h2>7. Contact</h2>
+    <p>Questions vie privée : <a href="mailto:raphael.nanni@gmail.com">raphael.nanni@gmail.com</a></p>
+
+  </div>
+</div>
+
+<footer>
+  <div class="footer-brand">
+    <img src="assets/icon-128.png" alt="InnerAgents" />
+    InnerAgents
+  </div>
+  <div class="footer-links">
+    <a href="index.html">Home</a>
+    <a href="https://github.com/aniki/inneragents-marketplace" target="_blank">GitHub</a>
+    <a href="privacy-policy.html">Privacy Policy</a>
+  </div>
+  <p class="footer-copy">© 2026 InnerAgents. Built with ♥ for the open web.</p>
+</footer>
+
+<script>
+  function setLang(lang, event) {
+    document.querySelectorAll('.lang-section').forEach(el => el.classList.remove('active'))
+    document.querySelectorAll('.lang-tab').forEach(el => el.classList.remove('active'))
+    document.getElementById('lang-' + lang).classList.add('active')
+    event.target.classList.add('active')
+  }
+</script>
+</body>
+</html>
