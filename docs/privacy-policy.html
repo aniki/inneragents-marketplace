@@ -133,7 +133,7 @@
 
   <div class="page-header">
     <h1>Privacy Policy</h1>
-    <p class="updated">Last updated: 2026-05-27</p>
+    <p class="updated">Last updated: 2026-06-04</p>
   </div>
 
   <div class="lang-tabs">
@@ -145,7 +145,7 @@
   <div class="lang-section active" id="lang-en">
 
     <div class="summary-box">
-      <strong>TL;DR:</strong> InnerAgents is local-first. Your conversations, API keys, and settings are stored on your device only. No data is collected by the InnerAgents developer. External connections are only made to services you explicitly configure.
+      <strong>TL;DR:</strong> InnerAgents is local-first. Your conversations, API keys, and settings are stored on your device only. External connections are only made to services you explicitly configure. InnerAgents optionally collects <strong>anonymous usage events</strong> (no message content, no personal data) to improve the extension — you can opt out at any time in Settings.
     </div>
 
     <h2>1. What data InnerAgents accesses</h2>
@@ -173,6 +173,7 @@
         <tr><td>Agent memories</td><td><code>chrome.storage.local</code></td><td>Until you clear them</td></tr>
         <tr><td>MCP server credentials</td><td><code>chrome.storage.local</code></td><td>Until you delete the server</td></tr>
         <tr><td>OAuth tokens (MCP)</td><td><code>chrome.storage.local</code></td><td>Until you disconnect</td></tr>
+        <tr><td>Anonymous analytics UUID</td><td><code>chrome.storage.local</code></td><td>Until you clear extension data (contains no personal data)</td></tr>
       </tbody>
     </table>
 
@@ -191,9 +192,14 @@
     <h3>OpenRouter model pricing (optional)</h3>
     <p>If you have an OpenRouter provider configured, InnerAgents performs a read-only fetch to <code>openrouter.ai/api/v1/models</code> to display pricing in the model selector.</p>
 
+    <h3>Anonymous usage analytics (opt-out)</h3>
+    <p>InnerAgents sends anonymous usage events (e.g. <em>extension opened</em>, <em>message sent</em>, <em>feature used</em>) to <strong>Google Analytics 4</strong> via the Measurement Protocol (<code>www.google-analytics.com/mp/collect</code>).</p>
+    <p>These events contain <strong>no message content</strong>, no API keys, no URLs you visit, and no personal data of any kind. The only identifier is a random UUID generated at install — it cannot be linked to your identity.</p>
+    <p>You can disable analytics at any time in <strong>Settings → General → Telemetry</strong>. Disabling takes effect immediately.</p>
+
     <h2>4. What InnerAgents does NOT do</h2>
     <ul>
-      <li>Does not collect telemetry or analytics</li>
+      <li>Does not include message content, API keys, or personal data in analytics events</li>
       <li>Does not send your data to InnerAgents servers (there are none)</li>
       <li>Does not track which websites you visit</li>
       <li>Does not sell or share your data with any third party</li>
@@ -216,7 +222,7 @@
   <div class="lang-section" id="lang-fr">
 
     <div class="summary-box">
-      <strong>En résumé :</strong> InnerAgents est local-first. Vos conversations, clés API et paramètres sont stockés uniquement sur votre appareil. Aucune donnée n'est collectée par le développeur. Les connexions externes ne sont établies qu'aux services que vous configurez explicitement.
+      <strong>En résumé :</strong> InnerAgents est local-first. Vos conversations, clés API et paramètres sont stockés uniquement sur votre appareil. Les connexions externes ne sont établies qu'aux services que vous configurez explicitement. InnerAgents collecte optionnellement des <strong>événements d'usage anonymes</strong> (sans contenu de messages, sans données personnelles) pour améliorer l'extension — vous pouvez vous y opposer à tout moment dans les Réglages.
     </div>
 
     <h2>1. Données auxquelles InnerAgents accède</h2>
@@ -244,6 +250,7 @@
         <tr><td>Mémoires des agents</td><td><code>chrome.storage.local</code></td><td>Jusqu'à effacement manuel</td></tr>
         <tr><td>Credentials serveurs MCP</td><td><code>chrome.storage.local</code></td><td>Jusqu'à suppression du serveur</td></tr>
         <tr><td>Tokens OAuth (MCP)</td><td><code>chrome.storage.local</code></td><td>Jusqu'à déconnexion</td></tr>
+        <tr><td>UUID analytique anonyme</td><td><code>chrome.storage.local</code></td><td>Jusqu'à effacement des données de l'extension (ne contient aucune donnée personnelle)</td></tr>
       </tbody>
     </table>
 
@@ -262,9 +269,14 @@
     <h3>Tarifs des modèles OpenRouter (optionnel)</h3>
     <p>Si vous avez un provider OpenRouter configuré, InnerAgents effectue un appel en lecture seule vers <code>openrouter.ai/api/v1/models</code> pour afficher les tarifs dans le sélecteur de modèles.</p>
 
+    <h3>Analyse d'usage anonyme (opt-out)</h3>
+    <p>InnerAgents envoie des événements d'usage anonymes (ex : <em>ouverture de l'extension</em>, <em>envoi de message</em>, <em>utilisation d'une fonctionnalité</em>) à <strong>Google Analytics 4</strong> via le Measurement Protocol (<code>www.google-analytics.com/mp/collect</code>).</p>
+    <p>Ces événements ne contiennent <strong>aucun contenu de message</strong>, aucune clé API, aucune URL visitée, et aucune donnée personnelle. Le seul identifiant est un UUID aléatoire généré à l'installation — il ne peut pas être lié à votre identité.</p>
+    <p>Vous pouvez désactiver la télémétrie à tout moment dans <strong>Réglages → Général → Télémétrie</strong>. La désactivation est immédiate.</p>
+
     <h2>4. Ce qu'InnerAgents ne fait PAS</h2>
     <ul>
-      <li>Ne collecte pas de télémétrie ni d'analytics</li>
+      <li>N'inclut pas de contenu de messages, de clés API ni de données personnelles dans les événements analytiques</li>
       <li>N'envoie pas vos données à des serveurs InnerAgents (il n'en existe pas)</li>
       <li>Ne trace pas les sites que vous visitez</li>
       <li>Ne vend ni ne partage vos données avec des tiers</li>
